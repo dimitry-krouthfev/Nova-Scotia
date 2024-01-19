@@ -8,6 +8,7 @@ This repository provides necessary middleware to take generated output of the Ci
 
 ## Why?
 
+
 Nova is the state of the art for recursive SNARKs, Circom is the state of the art for ZK devtooling, so it makes a lot of sense to want to do this. Since Nova uses ~R1CS arithmetization, its mostly just a matter of parsing Circom output into something Nova can use.
 
 As [Justin Drake talks about it](https://youtu.be/SwonTtOQzAk), I think the right way to think of Nova is as a preprocessor for zkSNARKs with lots of repeated structure -- Nova can shrink the cost (in number of R1CS constraints) of checking N instances of a problem to ~one instance of the same problem. This is clean and magical and lends itself well to a world where we take the output of Nova and then verify it in a "real" zkSNARK (like PLONK/groth16/Spartan) to obtain a actually fully minified proof (that is sublinear even in the size of one instance). Notably, [this pattern is already used](https://youtu.be/VmYpbFxBdtM?t=155) in settings like [zkEVMs](https://youtu.be/j7An-33_Zs0), but with STARK proofs instead of Nova proofs. IMO, Nova (and folding scheme-like things in particular) lend themselves better to the properties we want with the preprocessing layer vs. STARKs: fast compression, minimal cryptographic assumptions and low recursive overhead.[^1]
